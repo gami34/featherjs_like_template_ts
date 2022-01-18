@@ -1,12 +1,35 @@
+import compress from "compression";
+import helmet from "helmet";
+import cors from "cors";
+import cookieParser from "cookie-parser";
 import express from "express";
+import passport from "passport";
+import bcrypt from "bcryptjs";
+import errorHandler from "./errorHandler";
+import serviceNotFoundHandler from "./serviceNotFoundHandler";
+import mongooseClient from "./mongoose";
+import authentication from "./authentication";
+import appSession from "./appSession";
+import services from "./services";
 
 const app = express();
-const port = 3000;
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(helmet());
+app.use(compress());
+app.use(cors());
 
-app.listen(port, () => {
-  return console.log(`Express is listening at http://localhost:${port}`);
-});
+app.set("passport", passport);
+app.set("bcrypt", bcrypt);
+
+appSession(app);
+mongooseClient(app);
+authentication(app);
+services(app);
+
+app.use(serviceNotFoundHandler);
+app.use(errorHandler);
+
+export default app;

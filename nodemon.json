@@ -2,7 +2,7 @@
   "watch": "src",
   "ext": "ts,js,json",
   "ignore": ["node_modules", "coverage", "dist"],
-  "exec": "tsc --build tsconfig.prod.json && node ./dist/src/app.js",
+  "exec": "ts-node -r tsconfig-paths/register ./build.ts && tsc --build tsconfig.prod.json  && node ./dist/src",
   "restartable": "rs",
   "env": {
     "NODE_ENV": "development"

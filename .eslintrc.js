@@ -15,10 +15,11 @@ module.exports = {
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
-    ecmaVersion: "latest",
+    ecmaVersion: 13,
     sourceType: "module",
   },
   plugins: ["@typescript-eslint", "prettier", "import"],
+
   rules: {
     "prettier/prettier": "error",
     "import/prefer-default-export": "off",
