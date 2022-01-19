@@ -11,6 +11,7 @@ import mongooseClient from "./mongoose";
 import authentication from "./authentication";
 import appSession from "./appSession";
 import services from "./services";
+import RABC from "./RABC";
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.set("passport", passport);
 app.set("bcrypt", bcrypt);
 
 appSession(app);
+RABC(app);
 mongooseClient(app);
 authentication(app);
 services(app);

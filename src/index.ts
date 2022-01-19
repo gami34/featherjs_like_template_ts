@@ -1,15 +1,18 @@
 /* eslint-disable no-console */
 import debug from "debug";
 import http from "http";
+import { ServerOptions } from "socket.io";
 import logger from "./logger";
 import app from "./app";
 import config from "./config";
+import socketIO from "./socketio";
 
 const serverDebugger = debug("gideon:server");
 const port = normalizePort(config.server.port || "3000");
 app.set("port", port);
 
 const server: http.Server = http.createServer(app);
+socketIO(server as Partial<ServerOptions>, app);
 
 process.on("unhandledRejection", (reason, p) => logger.error("Unhandled Rejection at: Promise ", p, reason));
 
