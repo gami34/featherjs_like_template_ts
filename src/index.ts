@@ -19,6 +19,7 @@ process.on("unhandledRejection", (reason, p) => logger.error("Unhandled Rejectio
 server.listen(port, () => {
   if (config.isDevelopment) logger.info(`server port: ${port}`);
 });
+
 server.on("error", onError);
 server.on("listening", onListening);
 
